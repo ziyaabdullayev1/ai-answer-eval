@@ -4,6 +4,7 @@ from sentence_transformers import SentenceTransformer
 
 # e5 için
 #model = SentenceTransformer("intfloat/multilingual-e5-large-instruct")
+print("Using e5 model to generate embeddings...")
 # cosmos-e5 için
 model = SentenceTransformer("ytu-ce-cosmos/turkish-e5-large")
 # jina için
