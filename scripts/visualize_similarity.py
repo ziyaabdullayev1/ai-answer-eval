@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -65,5 +66,8 @@ plt.xlabel("Cosine Similarity")
 plt.ylabel("Label")
 
 plt.tight_layout()
-plt.savefig("results/similarity_vs_label_with_topk.png")
-plt.show()
+output_file_path = "results/similarity_vs_label_with_topk.png"
+os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
+with open(output_file_path, "w") as file:
+    plt.savefig(output_file_path)
+    plt.show()
