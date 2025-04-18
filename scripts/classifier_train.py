@@ -3,6 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
 from collections import defaultdict
@@ -40,14 +42,24 @@ for strategy in strategies:
     X = np.stack(df.apply(lambda row: make_features(row, strategy), axis=1))
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    clf = RandomForestClassifier(class_weight='balanced', n_estimators=200, random_state=42)
+    clf = MLPClassifier(hidden_layer_sizes=(128, 64, 32),
+                    activation='relu',
+                    solver='adam',
+                    alpha=1e-1,
+                    batch_size='auto',
+                    learning_rate='adaptive',
+                    max_iter=2000,
+                    random_state=42,
+                    early_stopping=True,)
     clf.fit(X_train, y_train)
 
     y_pred = clf.predict(X_test)
 
     print("Classification Report:")
-    report = classification_report(y_test, y_pred, output_dict=True)
-    print(classification_report(y_test, y_pred))
+    report = classification_report(y_test, y_pred,
+                                   output_dict=True,
+                                   zero_division=0.0)
+    print(report)
 
     results[strategy]["accuracy"] = report["accuracy"]
     results[strategy]["f1_macro"] = report["macro avg"]["f1-score"]
