@@ -42,14 +42,13 @@ for strategy in strategies:
     X = np.stack(df.apply(lambda row: make_features(row, strategy), axis=1))
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    clf = MLPClassifier(hidden_layer_sizes=(128, 64, 32),
+    clf = MLPClassifier(hidden_layer_sizes=(16, 32, 8),
                     activation='relu',
                     solver='adam',
                     alpha=1e-1,
                     batch_size='auto',
                     learning_rate='adaptive',
                     max_iter=2000,
-                    random_state=42,
                     early_stopping=True,)
     clf.fit(X_train, y_train)
 
