@@ -12,7 +12,7 @@ from xgboost import XGBClassifier
 from sklearn.preprocessing import LabelEncoder
 
 # 1. VERI
-df = pd.read_pickle("data/sample_with_vectors.pkl")
+df = pd.read_pickle("data/sample_with_vectors_full.pkl")
 y = df["label"].astype(int).values
 
 print("Sinif Dagilimi:")
