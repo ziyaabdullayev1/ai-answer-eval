@@ -8,6 +8,8 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
 from collections import defaultdict
+from xgboost import XGBClassifier
+from sklearn.preprocessing import LabelEncoder
 
 # 1. VERI
 df = pd.read_pickle("data/sample_with_vectors.pkl")
@@ -40,16 +42,23 @@ for strategy in strategies:
     print(f"\nVektor Stratejisi: {strategy}")
 
     X = np.stack(df.apply(lambda row: make_features(row, strategy), axis=1))
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    clf = MLPClassifier(hidden_layer_sizes=(16, 32, 8),
-                    activation='relu',
-                    solver='adam',
-                    alpha=1e-1,
-                    batch_size='auto',
-                    learning_rate='adaptive',
-                    max_iter=2000,
-                    early_stopping=True,)
+    le = LabelEncoder()
+    y_encoded = le.fit_transform(y)
+
+    X_train, X_test, y_train, y_test = train_test_split(X,
+        y_encoded, test_size=0.2, random_state=42)
+
+    clf = XGBClassifier(
+        objective="multi:softmax",
+        num_class=len(np.unique(y)),
+        eval_metric="mlogloss",
+        n_estimators=3,
+        learning_rate=0.1,
+        max_depth=1,
+        subsample=0.2,
+        colsample_bytree=0.1,
+    )
     clf.fit(X_train, y_train)
 
     y_pred = clf.predict(X_test)
