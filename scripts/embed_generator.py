@@ -11,7 +11,8 @@ from sentence_transformers import SentenceTransformer
 # print("Using cosmos-e5 model to generate embeddings...")
 #
 # jina için
-model = SentenceTransformer("jinaai/jina-embeddings-v3")
+model = SentenceTransformer("jinaai/jina-embeddings-v3",
+                            trust_remote_code=True)
 print("Using jina model to generate embeddings...")
 
 df = pd.read_excel("data/ogrenci_sorular_2025.xlsx")

@@ -2,9 +2,10 @@ pandas
 numpy
 scikit-learn
 transformers
-sentence-transformers
+sentence-transformers==4.1.0
 tqdm
 openpyxl
 matplotlib
 seaborn
 xgboost
+einops
