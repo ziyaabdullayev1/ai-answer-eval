@@ -7,7 +7,7 @@ from scipy.stats import spearmanr
 from tqdm import tqdm
 
 # Dosyayı oku
-df = pd.read_pickle("data/sample_with_vectors.pkl")
+df = pd.read_pickle("data/sample_with_vectors_e5_full.pkl")
 
 # Vektörleri ayıkla
 s_vectors = np.stack(df["soru_vec"].values)

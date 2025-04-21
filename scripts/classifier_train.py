@@ -12,7 +12,7 @@ from xgboost import XGBClassifier
 from sklearn.preprocessing import LabelEncoder
 
 # 1. VERI
-df = pd.read_pickle("data/sample_with_vectors_full.pkl")
+df = pd.read_pickle("data/sample_with_vectors_e5_full.pkl")
 y = df["label"].astype(int).values
 
 print("Sinif Dagilimi:")
@@ -53,7 +53,7 @@ for strategy in strategies:
         objective="multi:softmax",
         num_class=len(np.unique(y)),
         eval_metric="mlogloss",
-        n_estimators=3,
+        n_estimators=100,
         learning_rate=0.1,
         max_depth=1,
         subsample=0.2,
