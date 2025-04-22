@@ -5,11 +5,13 @@ from tqdm import tqdm
 
 # Dosya yolu
 #e5 için
-df = pd.read_pickle("data/sample_with_vectors.pkl")
+df = pd.read_pickle("data/sample_with_vectors_e5_full.pkl")
 # cosmos-e5 için
-#df = pd.read_pickle("data/sample_with_vectors_cosmos.pkl")
+#df = pd.read_pickle("data/sample_with_vectors_cosmos_full.pkl")
 # jina için
-#df = pd.read_pickle("data/sample_with_vectors_jina.pkl")
+#df = pd.read_pickle("data/sample_with_vectors_jina_full.pkl")
+
+df = df.sample(n=1000, random_state=42)
 
 # Vektör matrisleri
 s_vectors = np.stack(df["soru_vec"].values)
